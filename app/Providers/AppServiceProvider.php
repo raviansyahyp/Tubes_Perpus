@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
+
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (Schema::hasTable('settings')) {
+            Cache::forever('setting', Setting::first());
+        }
     }
 }
